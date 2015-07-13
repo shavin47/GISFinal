@@ -1,0 +1,43 @@
+extends layout
+
+block content
+	h1 Add Node
+
+	form(name="viewNodes", action="./nodemap", method="POST")
+		table(border="0")
+			tr
+				td
+					input(type='submit', value='View Nodes') 
+
+	form(name="addNameToMarker")
+		table(border="0")
+			tr
+				td
+					Label Name
+				td
+					input(type='text', id="nodeid", value="DefaultNode")
+				td
+					Label Warning name the node first and then select the location on the map to add. Do not leave spaces when naming.
+
+	link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css')
+	#map(style='height: 620px;', 'width:300px;')
+		script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js')
+		script.
+			var map = L.map("map").setView([6.927079, 79.861244], 14);
+			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+			maxZoom: 18
+
+			}).addTo(map); 
+			
+			map.on('click', function(e) {        
+				var popLocation= e.latlng;
+
+				var name = document.getElementById("nodeid").value;
+				
+				var link="/node/"+name+"/"+e.latlng.lat+"/"+e.latlng.lng+"/add";
+			
+				
+				var popup = L.popup().setLatLng(popLocation).setContent("You clicked the map at  " + e.latlng.lat+","+e.latlng.lng+" <br>" + '<a href='+link+'>Add Node</a>').openOn(map);     
+
+			});

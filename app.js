@@ -4,11 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var framework = require('framework');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var map = require('./routes/map');
 
 var app = express();
+
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/GIS');
+
+//Make DB accessible to Router
+app.use(function(req, res, next){
+  req.db = db; 
+  next();
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +35,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Routes
 app.use('/', routes);
 app.use('/users', users);
+app.use('/map', map.showMap);
+app.use('/node/:name/:lat/:long/add', framework.addNode);
+app.use('/node/:lat/:long/remove', framework.removeNode);
+app.use('/viewnamednodes/:name', framework.viewNamedNodes);
+app.use('/nodemap', framework.viewAllNodes);
+app.use('/node/:lat/:long/nodemap', framework.viewAllNodes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,6 +52,8 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 // error handlers
 

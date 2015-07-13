@@ -1,0 +1,115 @@
+extends layout 
+
+block content 
+	h1 #{title}
+
+	form(name="mainMap", action="../map", method="POST")
+		table(border="0")
+			tr
+				td
+					input(type='submit', value='Back to Main Map')
+
+	form(name="viewNamedNodes")
+		table(border="0")
+			tr
+				td
+					label(for='name') Node Name
+				td
+					input(type='text', id='name', value="")
+				td 
+					input(type='button', value='Show Node(s)', onClick="location.href='./viewnamednodes/'+document.getElementById('name').value;")
+
+	link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css')
+	#map(style='height: 620px;','width:300px;')
+		script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js')
+		script.
+			var map = L.map("map").setView([6.927079, 79.861244], 14);
+			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+			maxZoom: 18
+
+			}).addTo(map); 
+
+			function onClickMarker(e)
+			{
+				var popLocation= e.latlng;
+				var link="/node/"+e.latlng.lat+"/"+e.latlng.lng+"/remove";
+				var popup = L.popup()
+				.setLatLng(popLocation)
+				.setContent("You clicked the map at  " + e.latlng.lat+","+e.latlng.lng+" <br>" + '<a href='+link+'>Remove Node</a>')
+				.openOn(map);
+			}
+			if(#{listofnodes.length}==1)
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+			if(#{listofnodes.length}==2){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==3){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==4){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==5){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[4]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==6){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[4]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[5]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==7){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[4]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[5]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[6]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==8){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[4]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[5]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[6]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[7]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==9){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[4]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[5]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[6]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[7]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[8]}]).on('click',onClickMarker).addTo(map);
+				}
+			if(#{listofnodes.length}==10){
+				var marker = new L.marker([#{listofnodes[0]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[1]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[2]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[3]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[4]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[5]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[6]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[7]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[8]}]).on('click',onClickMarker).addTo(map);
+				var marker = new L.marker([#{listofnodes[9]}]).on('click',onClickMarker).addTo(map);
+				}

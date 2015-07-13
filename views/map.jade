@@ -7,8 +7,9 @@ block content
 		table(border="0")
 			tr
 				td
-					input(type='submit', value='View Nodes') 
-
+					input(type='submit', value='View Nodes')
+	<br>
+	<br>					
 	form(name="addNameToMarker")
 		table(border="0")
 			tr
@@ -18,7 +19,7 @@ block content
 					input(type='text', id="nodeid", value="DefaultNode")
 				td
 					Label Warning name the node first and then select the location on the map to add. Do not leave spaces when naming.
-
+	
 	link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css')
 	#map(style='height: 620px;', 'width:300px;')
 		script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js')
@@ -41,3 +42,58 @@ block content
 				var popup = L.popup().setLatLng(popLocation).setContent("You clicked the map at  " + e.latlng.lat+","+e.latlng.lng+" <br>" + '<a href='+link+'>Add Node</a>').openOn(map);     
 
 			});
+	<br>
+	<br>				
+	form(name="viewWays", method="POST")
+		table(border="0")
+			tr
+				td(colspan='2', align='center')
+					h1 View Way
+			tr		
+				td
+					label(for='name') Way Name
+				td
+					input(type='text', id='name', value="")
+				td 
+					input(type='button', value='Show Way', onClick="location.href='./viewnamedways/'+document.getElementById('name').value;")		
+	<br>
+	<br>
+	form(name="addWays", action="./node/addway" method="POST")
+		table(border="0")
+			tr
+				td(colspan='2', align='center')
+					h1 Set Way
+			tr
+				td
+					Label Way Name
+				td
+					input(type='text', name='wayname',  placeholder='Give Me a Name!')					
+			tr
+				td
+					Label Start Pos
+				td
+					input(type='text', name='startposlat',  placeholder='Latitude')
+					input(type='text', name='startposlong',  placeholder='Longitutde')
+			tr
+				td 
+					Label End Pos
+				td
+					input(type='text', name='endposlat',  placeholder='Latitude')
+					input(type='text', name='endposlong',  placeholder='Longitutde')
+			tr
+				td(colspan='2', align='center')
+					input(type='submit', value='Add Way')
+	<br>
+	<br>				
+	form(name="deleteWay", method="POST")
+		table(border="0")
+			tr
+				td(colspan='2', align='center')
+					h1 Delete Way
+			tr		
+				td
+					label(for='wayname') Way Name
+				td
+					input(type='text', id='wayname', value="")
+				td 
+					input(type='button', value='Delete Way', onClick="location.href='./deleteway/'+document.getElementById('wayname').value;")				

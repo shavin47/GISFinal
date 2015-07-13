@@ -1,0 +1,53 @@
+extends layout 
+
+block content 
+	h1 #{title}
+
+	form(name="mainMap", action="../map", method="POST")
+		table(border="0")
+			tr
+				td
+					input(type='submit', value='Back to Main Map')
+	link(rel='stylesheet', href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css')
+	#map(style='height: 620px;','width:300px;')
+		script(src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js')
+		script.
+			var map = L.map("map").setView([6.927079, 79.861244], 14);
+			L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+			maxZoom: 18
+
+			}).addTo(map);
+
+			function onClickPolyLine(e)
+			{
+				var popLocation= e.latlng;
+				var link="/node/"+e.latlng.lat+"/"+e.latlng.lng+"/remove";
+				var popup = L.popup()
+				.setLatLng(popLocation)
+				.setContent("You clicked the map at  " + e.latlng.lat+","+e.latlng.lng+" <br>" + '<a href='+link+'>Remove Node</a>')
+				.openOn(map);
+			}
+
+			if(#{endMarkers.length}==1)
+				var polyline = L.polyline([[#{startMarkers[0]}],[#{endMarkers[0]}]]).addTo(map);
+			if(#{endMarkers.length}==2)
+				var polyline = L.polyline([[#{startMarkers[0]}],[#{endMarkers[0]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[1]}],[#{endMarkers[1]}]]).addTo(map);
+			if(#{endMarkers.length}==3)
+				var polyline = L.polyline([[#{startMarkers[0]}],[#{endMarkers[0]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[1]}],[#{endMarkers[1]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[2]}],[#{endMarkers[2]}]]).addTo(map);	
+			if(#{endMarkers.length}==4)
+				var polyline = L.polyline([[#{startMarkers[0]}],[#{endMarkers[0]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[1]}],[#{endMarkers[1]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[2]}],[#{endMarkers[2]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[3]}],[#{endMarkers[3]}]]).addTo(map);
+			if(#{endMarkers.length}==5)
+				var polyline = L.polyline([[#{startMarkers[0]}],[#{endMarkers[0]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[1]}],[#{endMarkers[1]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[2]}],[#{endMarkers[2]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[3]}],[#{endMarkers[3]}]]).addTo(map);
+				var polyline = L.polyline([[#{startMarkers[4]}],[#{endMarkers[4]}]]).addTo(map);		
+
+			 								

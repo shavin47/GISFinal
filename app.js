@@ -43,7 +43,12 @@ app.use('/node/:name/:lat/:long/add', framework.addNode);
 app.use('/node/:lat/:long/remove', framework.removeNode);
 app.use('/viewnamednodes/:name', framework.viewNamedNodes);
 app.use('/nodemap', framework.viewAllNodes);
+app.use('/waymap', framework.viewWay);
 app.use('/node/:lat/:long/nodemap', framework.viewAllNodes);
+app.use('/node/addway', framework.addWay);
+app.use('/viewnamedways/:name', framework.viewWay);
+app.use('/deleteway/:name', framework.deleteWay);
+app.use('/deleteway/', framework.deleteWay);
 
 
 // catch 404 and forward to error handler
